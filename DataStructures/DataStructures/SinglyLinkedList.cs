@@ -11,9 +11,9 @@ namespace DataStructures
         private SinglyLinkedListNode<T> _head;
         private int _count;
 
-        public SinglyLinkedList<T> AddToHead(T Data)
+        public SinglyLinkedList<T> AddToHead(T argData)
         {
-            var newNode = new SinglyLinkedListNode<T>(Data);
+            var newNode = new SinglyLinkedListNode<T>(argData);
 
             if (_head == null)
             {
@@ -33,9 +33,9 @@ namespace DataStructures
             return this;
         }
 
-        public SinglyLinkedList<T> AddToTail(T Data)
+        public SinglyLinkedList<T> AddToTail(T argData)
         {
-            var newNode = new SinglyLinkedListNode<T>(Data);
+            var newNode = new SinglyLinkedListNode<T>(argData);
 
             if (_head == null)
             {
@@ -58,13 +58,13 @@ namespace DataStructures
             return this;
         }
 
-        public SinglyLinkedList<T> AddToPosition(T Data, int insertionPosition)
+        public SinglyLinkedList<T> AddToPosition(T argData, int argInsertionPosition)
         {
-            if (insertionPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
-            if (insertionPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+            if (argInsertionPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
+            if (argInsertionPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
 
-            var newNode = new SinglyLinkedListNode<T>(Data);
-            if (_head == null && insertionPosition == 0)
+            var newNode = new SinglyLinkedListNode<T>(argData);
+            if (_head == null && argInsertionPosition == 0)
             {
                 _head = newNode;
             }
@@ -74,7 +74,7 @@ namespace DataStructures
                 var currentNode = _head;
 
                 // We want to get the previous node from the position of the node that we want to make the insertion at
-                while (currentPosition < insertionPosition - 1)
+                while (currentPosition < argInsertionPosition - 1)
                 {
                     currentPosition++;
                     currentNode = currentNode.Next;
@@ -89,15 +89,15 @@ namespace DataStructures
             return this;
         }
 
-        public SinglyLinkedList<T> RemoveFromPosition(int removalPosition)
+        public SinglyLinkedList<T> RemoveFromPosition(int argRemovalPosition)
         {
-            if (removalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
-            if (removalPosition > _count) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+            if (argRemovalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
+            if (argRemovalPosition > _count) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
 
             var currentPosition = 0;
             var currentNode = _head;
 
-            while (currentPosition < removalPosition - 1)
+            while (currentPosition < argRemovalPosition - 1)
             {
                 currentPosition++;
                 currentNode = currentNode.Next;
@@ -110,15 +110,15 @@ namespace DataStructures
             return this;
         }
 
-        public T GetNode(int retrievalPosition)
+        public T GetNode(int argRetrievalPosition)
         {
-            if (retrievalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
-            if (retrievalPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+            if (argRetrievalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
+            if (argRetrievalPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
 
             var currentPosition = 0;
             var currentNode = _head;
 
-            while (currentPosition < retrievalPosition)
+            while (currentPosition < argRetrievalPosition)
             {
                 currentPosition++;
                 currentNode = currentNode.Next;
@@ -127,12 +127,12 @@ namespace DataStructures
             return currentNode != null ? currentNode.Data : default(T);
         }
 
-        public bool Search(T data)
+        public bool Search(T argData)
         {
             var currentNode = _head;
 
             while (currentNode != null) {
-                if (currentNode.Data.Equals(data)) return true;
+                if (currentNode.Data.Equals(argData)) return true;
                 currentNode = currentNode.Next;
             }
             
@@ -163,6 +163,7 @@ namespace DataStructures
         public SinglyLinkedList<T> Clear()
         {
             _head = null;
+            _count = 0;
 
             return this;
         }
@@ -180,7 +181,7 @@ namespace DataStructures
             Data = argData;
         }
 
-        public SinglyLinkedListNode<T> Next;
+        public SinglyLinkedListNode<T> Next { get; set; }
         public T Data { get; set; }
     }
 }
