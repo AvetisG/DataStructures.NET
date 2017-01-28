@@ -58,23 +58,23 @@ namespace DataStructures
             return this;
         }
 
-        public SinglyLinkedList<T> AddToPosition(T Data, int insertPosition)
+        public SinglyLinkedList<T> AddToPosition(T Data, int insertionPosition)
         {
-            if (insertPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
-            if (insertPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+            if (insertionPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
+            if (insertionPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
 
             var newNode = new SinglyLinkedListNode<T>(Data);
-            if (_head == null && insertPosition == 0)
+            if (_head == null && insertionPosition == 0)
             {
                 _head = newNode;
             }
             else
             {
-                int currentPosition = 0;
+                var currentPosition = 0;
                 var currentNode = _head;
 
                 // We want to get the previous node from the position of the node that we want to make the insertion at
-                while (currentPosition < insertPosition - 1)
+                while (currentPosition < insertionPosition - 1)
                 {
                     currentPosition++;
                     currentNode = currentNode.Next;
@@ -88,8 +88,58 @@ namespace DataStructures
             _count++;
             return this;
         }
-        
-        public void Print()
+
+        public SinglyLinkedList<T> RemoveFromPosition(int removalPosition)
+        {
+            if (removalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
+            if (removalPosition > _count) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+
+            var currentPosition = 0;
+            var currentNode = _head;
+
+            while (currentPosition < removalPosition - 1)
+            {
+                currentPosition++;
+                currentNode = currentNode.Next;
+            }
+
+            var nodeToStoreForRemoval = currentNode.Next;
+            currentNode.Next = nodeToStoreForRemoval.Next;
+
+            _count--;
+            return this;
+        }
+
+        public T GetNode(int retrievalPosition)
+        {
+            if (retrievalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
+            if (retrievalPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+
+            var currentPosition = 0;
+            var currentNode = _head;
+
+            while (currentPosition < retrievalPosition)
+            {
+                currentPosition++;
+                currentNode = currentNode.Next;
+            }
+
+            return currentNode != null ? currentNode.Data : default(T);
+        }
+
+        public bool Search(T data)
+        {
+            var currentNode = _head;
+
+            while (currentNode != null) {
+                if (currentNode.Data.Equals(data)) return true;
+                currentNode = currentNode.Next;
+            }
+            
+            return false;
+        }
+
+        public SinglyLinkedList<T> Print()
         {
             var currentNode = _head;
 
@@ -106,11 +156,15 @@ namespace DataStructures
 
                 currentNode = currentNode.Next;
             }
+
+            return this;
         }
 
-        public void Clear()
+        public SinglyLinkedList<T> Clear()
         {
             _head = null;
+
+            return this;
         }
 
         public int Count()
