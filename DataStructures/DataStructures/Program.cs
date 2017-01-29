@@ -40,7 +40,15 @@ namespace DataStructures
             Console.WriteLine("Count is {0}", doublyLinkedList.Count());
             doublyLinkedList.Clear();
 
+            doublyLinkedList.AddToTail(1).AddToTail(2).AddToTail(3).AddToTail(4).AddToTail(5).RemoveFromPosition(0).Print();
+            Console.WriteLine("Count is {0}", doublyLinkedList.Count());
+            doublyLinkedList.Clear();
+
             doublyLinkedList.AddToTail(1).AddToTail(2).AddToTail(3).AddToTail(4).AddToTail(5).RemoveFromPosition(4).Print();
+            Console.WriteLine("Count is {0}", doublyLinkedList.Count());
+            doublyLinkedList.Clear();
+
+            doublyLinkedList.AddToTail(1).AddToTail(2).AddToTail(3).AddToTail(4).AddToTail(5).RemoveFromPosition(2).Print();
             Console.WriteLine("Count is {0}", doublyLinkedList.Count());
             doublyLinkedList.Clear();
 

@@ -100,6 +100,38 @@ namespace DataStructures
             // We increment since we don't want it to remove the tail - there is nothing to remove there
             CheckRanges(argRemovalPosition + 1);
 
+            if (argRemovalPosition == 0)
+            {
+                _head = _head.Next;
+                _head.Previous = null;
+            }
+            else if (argRemovalPosition == _count - 1)
+            {
+                var currentNode = _head;
+
+                while (currentNode.Next != null) currentNode = currentNode.Next;
+
+                var previousNodeFromOneWeWantToRemove = currentNode.Previous;
+                previousNodeFromOneWeWantToRemove.Next = null;
+            }
+            else
+            {
+                var currentPosition = 0;
+                var currentNode = _head;
+
+                while (currentPosition < argRemovalPosition)
+                {
+                    currentPosition++;
+                    currentNode = currentNode.Next;
+                }
+
+                var nodeNextToNodeBeingRemoved = currentNode.Next;
+                var nodePreviousToNodeBeingRemoved = currentNode.Previous;
+
+                nodePreviousToNodeBeingRemoved.Next = nodeNextToNodeBeingRemoved;
+                nodeNextToNodeBeingRemoved.Previous = nodePreviousToNodeBeingRemoved;
+            }
+
             _count--;
             return this;
         }
