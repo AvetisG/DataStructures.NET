@@ -60,11 +60,10 @@ namespace DataStructures
 
         public SinglyLinkedList<T> AddToPosition(T argData, int argInsertionPosition)
         {
-            if (argInsertionPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
-            if (argInsertionPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+            CheckRanges(argInsertionPosition);
 
             var newNode = new SinglyLinkedListNode<T>(argData);
-            if (_head == null && argInsertionPosition == 0)
+            if (_head == null)
             {
                 _head = newNode;
             }
@@ -91,8 +90,8 @@ namespace DataStructures
 
         public SinglyLinkedList<T> RemoveFromPosition(int argRemovalPosition)
         {
-            if (argRemovalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
-            if (argRemovalPosition > _count) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+            // We increment since we don't want it to remove the tail - there is nothing to remove there
+            CheckRanges(argRemovalPosition + 1);
 
             var currentPosition = 0;
             var currentNode = _head;
@@ -112,8 +111,7 @@ namespace DataStructures
 
         public T GetNode(int argRetrievalPosition)
         {
-            if (argRetrievalPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
-            if (argRetrievalPosition > _count + 1) throw new IndexOutOfRangeException("The current insertion position is out of the range.");
+            CheckRanges(argRetrievalPosition);
 
             var currentPosition = 0;
             var currentNode = _head;
@@ -125,6 +123,12 @@ namespace DataStructures
             }
 
             return currentNode != null ? currentNode.Data : default(T);
+        }
+
+        private void CheckRanges(int argPosition)
+        {
+            if (argPosition < 0) throw new IndexOutOfRangeException("An index cannot be negative");
+            if (argPosition > _count) throw new IndexOutOfRangeException("The current position is out of the range.");
         }
 
         public bool Search(T argData)
